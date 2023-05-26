@@ -134,5 +134,35 @@ main {
 
 .footer .copyright {
   text-align: center;
-  font-size: 2.2rem;
+}
+
+.error,
+.error-enlace{
+  font-size: 2rem;
+  text-align: center;
+  margin: 5rem
+}
+
+.error-enlace{
+  display: block;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.enlace{
+  margin-top: 2rem;
+  display: block;
+  background-color: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  text-align: center;
+  padding: 0.5rem;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  font-weight: 700;
+  transition: background-color 250ms;
+}
+
+.enlace:hover{
+  background-color: var(--primary);
 }
