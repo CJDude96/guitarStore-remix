@@ -10,7 +10,7 @@ const Guitarra = ({ guitar }) => {
         <h3>{name}</h3>
         <p className="descripcion">{description}</p>
         <p className="precio">${price}</p>
-        <Link to={`/guitarra/${url}`}  className="enlace">Ver Producto</Link>
+        <Link to={`/guitarras/${url}`}  className="enlace">Ver Producto</Link>
       </div>
     </div>
   );

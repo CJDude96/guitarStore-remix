@@ -15,7 +15,7 @@ const Post = ({ post }) => {
         <h1>{title}</h1>
         <p className="fecha">{formatDate(publishedAt)}</p>
         <p className="resumen">{content}</p>
-        <Link className="enlace" to={`/posts/${url}`}>
+        <Link className="enlace" to={`/blog/${url}`}>
           Leer Post
         </Link>
       </div>
