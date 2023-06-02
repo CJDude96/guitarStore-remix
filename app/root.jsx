@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Links,
   Link,
@@ -43,9 +44,59 @@ export function links() {
 }
 
 export default function App() {
+  const carritoLS =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("carrito")) ?? []
+      : null;
+  const [carrito, setCarrito] = useState(carritoLS);
+
+  useEffect(() => {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
+
+  const addCarrito = (guitarra) => {
+    if (carrito.some((obj) => obj.id === guitarra.id)) {
+      const carritoAct = carrito.map((obj) => {
+        if (obj.id === guitarra.id) {
+          obj.cantidad = guitarra.cantidad;
+        }
+        return obj;
+      });
+
+      setCarrito(carritoAct);
+    } else {
+      setCarrito([...carrito, guitarra]);
+    }
+  };
+
+  const actualizarCantidad = (guitarra) => {
+    const carritoAct = carrito.map((obj) => {
+      if (obj.id === guitarra.id) {
+        obj.cantidad = guitarra.cantidad;
+      }
+      return obj;
+    });
+
+    setCarrito(carritoAct);
+  };
+
+  const eliminarGuitarra = (id) => {
+    const carritoAct = carrito.filter((obj) => {
+      return obj.id !== id;
+    });
+    setCarrito(carritoAct);
+  };
+
   return (
     <Document>
-      <Outlet />
+      <Outlet
+        context={{
+          carrito,
+          addCarrito,
+          actualizarCantidad,
+          eliminarGuitarra,
+        }}
+      />
     </Document>
   );
 }
@@ -77,16 +128,20 @@ export function ErrorBoundary() {
         <h1 className="error">
           {error.status} {error.statusText}
         </h1>
-        <Link className="error-enlace" to="/">Volver a inicio</Link>
+        <Link className="error-enlace" to="/">
+          Volver a inicio
+        </Link>
       </Document>
     );
-  } else if(error instanceof Error){
+  } else if (error instanceof Error) {
     return (
       <Document>
         <p className="error">{error.message}</p>
         <p>The stack trace is:</p>
         <pre>{error.stack}</pre>
-        <Link className="error-enlace" to="/">Volver a inicio</Link>
+        <Link className="error-enlace" to="/">
+          Volver a inicio
+        </Link>
       </Document>
     );
   } else {

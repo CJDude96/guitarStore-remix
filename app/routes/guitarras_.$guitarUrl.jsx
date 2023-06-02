@@ -1,4 +1,5 @@
-import { useLoaderData } from "@remix-run/react";
+import { useState } from "react";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
 import { getGuitar } from "~/models/guitarras.server";
 import styles from "~/styles/guitarras.css";
 
@@ -43,10 +44,30 @@ export function links() {
   ];
 }
 
-
 const GuitarraPage = () => {
-  const data = useLoaderData();
-  const { name, description, image, price } = data?.data[0].attributes;
+
+  const data = useOutletContext()
+  const [ cantidad, setCantidad ] = useState(0)
+  const guitarra = useLoaderData();
+  const { name, description, image, price } = guitarra?.data[0].attributes;
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    if(cantidad < 1){
+      alert("Debes seleccionar una cantidad!")
+      return
+    }
+
+    const selectedGuitar = {
+      id: guitarra.data[0].id,
+      name,
+      price,
+      image: image.data.attributes.url,
+      cantidad
+    }
+
+    data.addCarrito(selectedGuitar)
+  }
 
   return (
     <main className="contenedor guitarra no-shadow">
@@ -60,10 +81,14 @@ const GuitarraPage = () => {
         <p className="texto">{description}</p>
         <p className="precio">${price}</p>
 
-        <form className="formulario">
+        <form onSubmit={handleSubmit} className="formulario">
           <label htmlFor="cantidad">Cantidad</label>
-          <select name="cantidad" id="cantidad">
-            <option value="">-- Seleccione --</option>
+          <select 
+            name="cantidad" 
+            id="cantidad"
+            onChange={e => setCantidad(+e.target.value)}  
+          >
+            <option value="0">-- Seleccione --</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
