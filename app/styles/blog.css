@@ -50,3 +50,11 @@
 .mt-3 {
   margin-top: 3rem;
 }
+
+.post .contenido .titulo {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

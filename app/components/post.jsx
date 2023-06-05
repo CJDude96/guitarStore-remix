@@ -12,7 +12,7 @@ const Post = ({ post }) => {
         alt={`${url}`}
       />
       <div className="contenido">
-        <h1>{title}</h1>
+        <h1 className="titulo" >{title}</h1>
         <p className="fecha">{formatDate(publishedAt)}</p>
         <p className="resumen">{content}</p>
         <Link className="enlace" to={`/blog/${url}`}>
