@@ -14,7 +14,11 @@ import Header from "~/components/header";
 import Footer from "~/components/footer";
 
 export function meta() {
-  return [{ title: "GuitarStore - Remix" }];
+  return [
+    { title: "GuitarStore - Remix" },
+    { content: "text/html" },
+    { charset: "utf-8" },
+  ];
 }
 
 export function links() {
