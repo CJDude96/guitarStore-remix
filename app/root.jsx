@@ -15,9 +15,9 @@ import Footer from "~/components/footer";
 
 export function meta() {
   return [
+    { charset: "UTF-8" },
     { title: "GuitarStore - Remix" },
     { content: "text/html" },
-    { charset: "utf-8" },
   ];
 }
 
